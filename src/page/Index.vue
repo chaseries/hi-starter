@@ -1,22 +1,35 @@
 <template>
   <div>
-    <layout-header></layout-header>
-    Home page
-    <div v-for="postNo in [1,2,3,4,5]" :key="postNo">
-      <router-link :to="'/post/' + postNo">Post {{ postNo }}</router-link>
-    </div>
+    <hero :items="[]" :timing="{}"></hero>
   </div>
 </template>
 
 <script>
+import Preloader from "VUE_COMPONENT/preloader/Index.vue";
+import { imagePromise } from "SRC/util/loading";
+
 
 export default {
   name: "page-index",
   components: {
-    LayoutHeader: () => import(
-      /* webpackChunkName: "componentHeaderLayoutHeader" */
-      "VUE_COMPONENT/layout/header/LayoutHeader.vue"
-    )
+    Hero: () => import(
+      /* webpackChunkName: "componentHeroHeroIndex" */
+      "VUE_COMPONENT/hero/HeroIndex.vue"
+    ),
+    Preloader
+  },
+  mounted () {
+
+    const nasaSrc = "https://go.nasa.gov/2Csbfgh";
+    const p = imagePromise(nasaSrc, "foo");
+    p.then((result) => {
+      console.log(result, result.src);
+      document.body.appendChild(result.img);
+    });
+    console.log(p);
+
+    //this.$store.commit("loading/index/setCriticalAssets", { assets: criticalAssets });
+
   }
 };
 </script>

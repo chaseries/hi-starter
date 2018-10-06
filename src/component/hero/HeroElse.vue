@@ -1,7 +1,6 @@
 <template>
   <div>
     <layout-header></layout-header>
-    About page
   </div>
 </template>
 
@@ -10,12 +9,9 @@ import LayoutHeader from "VUE_COMPONENT/layout/header/LayoutHeader.vue";
 
 
 export default {
-  name: "page-about",
+  name: "component-hero-hero-else",
   components: {
-    LayoutHeader: () => import(
-      /* webpackChunkName: "componentHeaderLayoutHeader" */
-      "VUE_COMPONENT/layout/header/LayoutHeader.vue"
-    )
+    LayoutHeader
   }
 };
 </script>

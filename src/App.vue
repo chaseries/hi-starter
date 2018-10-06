@@ -1,22 +1,24 @@
 <template>
   <div id="app">
+    {{ transType }}
     <router-view></router-view>
-    <layout-footer></layout-footer>
   </div>
 </template>
 
 <script>
-
+import { mapGetters } from "vuex";
 
 export default {
   name: "app",
-  components: {
-    LayoutFooter: () => import(
-      /* webpackChunkName: "componentFooterLayoutFooter" */
-      "VUE_COMPONENT/layout/footer/LayoutFooter.vue"
-    )
+  computed: {
+    ...mapGetters({
+      transType: "trans/getTransType",
+      isInitialLoad: "trans/getIsInitialLoad"
+    })
   }
 };
+
+
 </script>
 
 <style lang="sass">
