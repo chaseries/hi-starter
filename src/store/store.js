@@ -1,7 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import trans from "./trans";
-import loading from "./loading/all.js";
+import loading from "./loading/loading.js";
 
 
 Vue.use(Vuex);

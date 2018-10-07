@@ -1,6 +1,7 @@
 <template>
   <div>
     <hero></hero>
+    <img src="https://go.nasa.gov/2Csbfgh" width="400"/>
   </div>
 </template>
 
