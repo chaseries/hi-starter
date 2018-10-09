@@ -15,6 +15,8 @@ export const createApp = function createApp() {
 
   router.beforeEach((to, from, next) => {
 
+    store.dispatch("loading/fetchCriticalAssets", to.path);
+
     if (to.query.trans != undefined) {
       const { trans, ...newQuery } = to.query;
       const newRoute = Object.assign({}, { ...to }, { query: newQuery });
@@ -23,14 +25,13 @@ export const createApp = function createApp() {
       next();
     }
 
+    // This might just be subsumed by logic in App.vue
     if (!store.getters["trans/getIsInitialLoad"]) {
       const type = to.query.trans 
         ? { type: to.query.trans }
         : { type: "default" };
       store.commit("trans/setTransType", type);
     }
-
-    store.commit("trans/setIsNotInitialLoad");
   });
 
   const app = new Vue({

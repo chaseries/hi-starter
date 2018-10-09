@@ -1,5 +1,8 @@
 <template>
-  <hero></hero>
+  <div>
+    HI I AM WORKS
+    <hero></hero>
+  </div>
 </template>
 
 <script>

@@ -1,5 +1,6 @@
 <template>
   <div>
+    HI I AM DIGEST
     <hero></hero>
   </div>
 </template>
