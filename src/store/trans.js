@@ -7,7 +7,6 @@ export const state = {
 
 export const mutations = {
   setTransType (state, { type }) {
-    console.log("The type is", type);
     state.transType = type;
   },
 

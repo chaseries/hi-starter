@@ -7,10 +7,12 @@
 
 <script>
 import Hero from "VUE_COMPONENT/hero/HeroElse.vue";
+import CriticalAssets from "VUE_COMPONENT/mixin/critical-assets";
 
 
 export default {
   name: "page-digest-index",
+  mixins: [CriticalAssets],
   components: {
     Hero
   }

@@ -1,10 +1,9 @@
 
 export default {
-  methods: {
-    decrementIt () {
-      console.log("Working so far...");
-    }
-  },
   mounted () {
+    this.$store.commit("loading/setFinishedCountingTrue");
+  },
+  beforeLeave (to, from, next) {
+    this.$store.commit("loading/resetCurrentPageState");
   }
 };

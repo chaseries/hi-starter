@@ -15,8 +15,6 @@ export const createApp = function createApp() {
 
   router.beforeEach((to, from, next) => {
 
-    store.dispatch("loading/fetchCriticalAssets", to.path);
-
     if (to.query.trans != undefined) {
       const { trans, ...newQuery } = to.query;
       const newRoute = Object.assign({}, { ...to }, { query: newQuery });

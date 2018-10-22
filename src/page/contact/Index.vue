@@ -1,13 +1,19 @@
 <template>
   <div>
-    HI I AM CONTACT
     <hero></hero>
-    <img @load="decrementIt" src="https://i.imgur.com/wFw56xX.png">
+    I am contact.
+    <img-strict
+      src="https://bit.ly/2yq6794"
+      alt="foo"
+      width="400">
+    </img-strict>
   </div>
 </template>
 
 <script>
 import Hero from "VUE_COMPONENT/hero/HeroElse.vue";
+import ImgStrict from "VUE_COMPONENT/img/ImgStrict.vue";
+import ImgLazy from "VUE_COMPONENT/img/ImgLazy.vue";
 import CriticalAssets from "VUE_COMPONENT/mixin/critical-assets";
 
 
@@ -15,11 +21,9 @@ export default {
   name: "page-contact-index",
   mixins: [CriticalAssets],
   components: {
-    Hero
-  },
-  mounted () {
-    //const i = new Image();
-    //i.src = "https://go.nasa.gov/2Csbfgh";
+    Hero,
+    ImgStrict,
+    ImgLazy
   }
 };
 </script>
