@@ -15,7 +15,7 @@ export const createApp = function createApp() {
 
   router.beforeEach((to, from, next) => {
 
-    if (to.query.trans != undefined) {
+    if (to.query.trans !== undefined) {
       const { trans, ...newQuery } = to.query;
       const newRoute = Object.assign({}, { ...to }, { query: newQuery });
       next(newRoute);

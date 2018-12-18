@@ -14,11 +14,10 @@ const state = {
 };
 
 const mutations = {
-
   // Should be reset before every navigation
   resetCurrentPageState ({ currentPageState }) {
     currentPageState.finishedCounting = false;
-    currentPageState.totalAssets = 0;
+    currentPageState.totalAssets = 0; // Should be Maybe
     currentPageState.totalLoaded = 0;
   },
   
@@ -32,33 +31,34 @@ const mutations = {
     currentPageState.totalAssets += 1;
   },
 
-  incrementTotalLoaded ({ initialAppLoadIsComplete, currentPageState }) {
-    currentPageState.totalLoaded += 1;
-    if (currentPageState.totalLoaded === currentPageState.totalAssets) {
-      initialAppLoadIsComplete = true;
+  setInitialAppLoadIsCompleteTrue(state) {
+    if (state.initialAppLoadIsComplete === false) {
+      state.initialAppLoadIsComplete = true;
+    }
+  },
+
+  incrementTotalLoaded (state) {
+    state.currentPageState.totalLoaded += 1;
+    if (state.currentPageState.totalLoaded === state.currentPageState.totalAssets) {
+      if (!state.initialAppLoadIsComplete) {
+        state.initialAppLoadIsComplete = true;
+      }
     }
   }
-
 };
 
 const getters = {
-  
   getAssetsLoaded ({ currentPageState }) {
     const fc = currentPageState.finishedCounting;
     const eq = currentPageState.totalAssets === currentPageState.totalLoaded;
-
     if (fc && eq) { return true; } 
-
     return false;
   },
 
   getInitAppLoadComplete ({ initialAppLoadIsComplete }) {
     return initialAppLoadIsComplete;
   }
-
 };
-
-
 
 
 export default {
