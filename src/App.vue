@@ -1,40 +1,46 @@
 <template>
   <div id="app">
-    <!-- <trans-all -->
-      <!-- :name="name"> -->
-    <!-- </trans-all> -->
+    <trans-initial-default v-if="transType === 'initial'"></trans-initial-default>
+    <trans-nav-default v-if="transType === 'default'"></trans-nav-default>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
 import { mapGetters } from "vuex";
-//import TransAll from "VUE_COMPONENT/trans/All.vue";
+import TransInitialDefault from "VUE_COMPONENT/trans/InitialDefault.vue";
+import TransNavDefault from "VUE_COMPONENT/trans/NavDefault.vue";
 //import { Maybe } from "monet";
 
 export default {
   name: "app",
   components: {
-    //TransAll
+    TransInitialDefault,
+    TransNavDefault
+  },
+  data () {
+    return {
+      introAnimDone: false
+    };
+  },
+  methods: {
+    toggleIntroAnimDone () {
+      this.introAnimDone = !this.introAnimDone;
+    }
   },
   computed: {
     name () {
       return "loading"; 
     },
-    currentPageIsLoaded () {
-      return this.$store.getters["loading/getAssetsLoaded"];
+    isLoading () {
+      return !(this.$store.getters["loading/getAssetsLoaded"]);
+    },
+    transType () {
+      return this.$store.state.loading.transType;
     },
     initAppLoadComplete () {
       return this.$store.getters["loading/getInitAppLoadComplete"];
     }
-  },
-  beforeMount () {
-    console.log("From App's beforeMount, the initialAppLoadIsComplete state is:");
-    console.log(this.$store.state.loading.initialAppLoadIsComplete);
-  },
-  mounted () {
-    console.log("From App's mounted, the initialAppLoadIsComplete state is:");
-    console.log(this.$store.state.loading.initialAppLoadIsComplete);
   }
 };
 

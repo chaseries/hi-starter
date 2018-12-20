@@ -6,6 +6,7 @@ import { zipToObject, repeatCall } from "SRC/util/prelude";
 
 const state = {
   initialAppLoadIsComplete: false,
+  transType: "initial",
   currentPageState: {
     finishedCounting: false,
     totalAssets: 0,
@@ -14,6 +15,11 @@ const state = {
 };
 
 const mutations = {
+
+  changeTransType (state, newTransType) {
+    state.transType = newTransType;
+  },
+
   // Should be reset before every navigation
   resetCurrentPageState ({ currentPageState }) {
     currentPageState.finishedCounting = false;
