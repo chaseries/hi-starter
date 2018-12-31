@@ -1,44 +1,36 @@
 <template>
   <div id="app">
-    <trans-initial-default v-if="transType === 'initial'"></trans-initial-default>
-    <trans-nav-default v-if="transType === 'default'"></trans-nav-default>
+    <div class="transition-information">
+      <h1>
+      Transition information
+      </h1>
+      <ul>
+        <li>Transition type: {{ transType }}</li>
+        <li>Initial load complete: {{ initialLoadComplete }}</li>
+      </ul>
+    </div>
+    <trans-init></trans-init>
+    <trans></trans>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex";
-import TransInitialDefault from "VUE_COMPONENT/trans/InitialDefault.vue";
-import TransNavDefault from "VUE_COMPONENT/trans/NavDefault.vue";
-//import { Maybe } from "monet";
+import TransInit from "VUE_COMPONENT/trans/TransInit.vue";
+import Trans from "VUE_COMPONENT/trans/Trans.vue";
 
 export default {
   name: "app",
   components: {
-    TransInitialDefault,
-    TransNavDefault
-  },
-  data () {
-    return {
-      introAnimDone: false
-    };
-  },
-  methods: {
-    toggleIntroAnimDone () {
-      this.introAnimDone = !this.introAnimDone;
-    }
+    TransInit,
+    Trans
   },
   computed: {
-    name () {
-      return "loading"; 
-    },
-    isLoading () {
-      return !(this.$store.getters["loading/getAssetsLoaded"]);
-    },
     transType () {
-      return this.$store.state.loading.transType;
+      return this.$store.state.loading.currentTransType;
     },
-    initAppLoadComplete () {
+    // --- Transition information stuff
+    initialLoadComplete () {
       return this.$store.getters["loading/getInitAppLoadComplete"];
     }
   }
@@ -48,5 +40,14 @@ export default {
 
 <style lang="sass">
 @import "~SASS/main";
+
+.transition-information
+  z-index: 1000
+  position: fixed
+  bottom: 0
+  width: 400
+  background: white
+  border-top: 2px solid black
+  border-right: 2px solid black
 
 </style>

@@ -1,4 +1,5 @@
 <template>
+  <div>
   <transition name="trans-initial-default-sequence">
     <div v-if="!assetsLoaded" class="trans trans-initial-default">
       <div class="trans-initial-default__guts">
@@ -6,6 +7,7 @@
       </div>
     </div>
   </transition>
+  </div>
 </template>
 
 <script>
@@ -13,6 +15,12 @@
 export default {
   name: "component-trans-initial-default",
   computed: {
+    introShouldPlay () {
+      return this.$store.getters["loading/getInitIntroShouldPlay"];
+    },
+    outroShouldPlay () {
+      return this.$store.getters["loading/getInitOutroShouldPlay"];
+    },
     assetsLoaded () {
       return this.$store.getters["loading/getAssetsLoaded"];
     }
@@ -35,17 +43,17 @@ export default {
     text-align: center
     top: 50%
     transform: translateY(-50%)
-    transition: opacity 0.5s
+    //transition: opacity 0.5s
 
 .trans-intial-default-sequence-enter
-  opacity: 1
+  //opacity: 1
 
 .trans-initial-default-sequence-leave-active
-  transition: opacity 0.5s 0.5s
+  //transition: opacity 0.5s 0.5s
   .trans-initial-default__guts
-    opacity: 0
+    //opacity: 0
 
 .trans-initial-default-sequence-leave-to
-  opacity: 0
+  //opacity: 0
 
 </style>

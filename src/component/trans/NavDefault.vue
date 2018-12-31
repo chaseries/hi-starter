@@ -1,42 +1,40 @@
 <template>
-  <div style="color: white; z-index: 1000; position: relative; background: red">
+  <div>
   <transition
     name="trans-nav-default-intro-sequence"
-    v-on:before-leave="beforeIntroLeave">
-  The state is {{ content }}
+    v-on:after-enter="afterIntroEnter"
+    appear>
 
     <div
       v-if="introShouldPlay"
       class="trans trans-nav-default">
-      <div class="trans-nav-default__guts">
-        Inside the intro! {{ content }}
-      </div>
+      <div class="trans-nav-default__guts">Inside the intro! {{ content }}</div>
     </div>
 
   </transition>
 
-  <transition name="trans-nav-default-middle-sequence">
+  <!-- <transition name="trans-nav-default-middle-sequence"> -->
 
-    <div
-      v-if="middleShouldPlay"
-      class="trans trans-nav-default-middle">
-    </div>
+    <!-- <div -->
+      <!-- v-if="middleShouldPlay" -->
+      <!-- class="trans trans-nav-default-middle"> -->
+    <!-- </div> -->
 
-  </transition>
+  <!-- </transition> -->
 
-  <transition
-    name="trans-nav-default-outro-sequence"
-    v-on:enter="afterOutroEnter">
+  <!-- <transition -->
+    <!-- name="trans-nav-default-outro-sequence" -->
+    <!-- v-on:enter="afterOutroEnter"> -->
 
-    <div
-      class="trans trans-nav-default"
-      v-if="outroShouldPlay">
-      <div class="trans-nav-default__guts">
-        Inside the outro! {{ content }}
-      </div>
-    </div>
+    <!-- <div -->
+      <!-- class="trans trans-nav-default" -->
+      <!-- v-if="outroShouldPlay"> -->
+      <!-- <div class="trans-nav-default__guts"> -->
+        <!-- Inside the outro! {{ content }} -->
+      <!-- </div> -->
+    <!-- </div> -->
 
-  </transition>
+  <!-- </transition> -->
   </div>
 </template>
 
@@ -55,7 +53,9 @@ export default {
       return this.$store.getters["loading/getAssetsLoaded"];
     },
     introShouldPlay () {
-      return !this.assetsLoaded;
+      const sIP = this.$store.getters["loading/getOutroSequenceShouldPlay"];
+      console.log("Checking if intro should play...", sIP);
+      return sIP;
     },
     middleShouldPlay () {
       return ((!this.assetsLoaded) && this.introDone);
@@ -64,12 +64,22 @@ export default {
       return (this.assetsLoaded && this.introDone && this.outroFlag);
     },
     content () {
-      return "The state is " + [this.assetsLoaded, this.introDone, this.outroFlag].join(" ") + ".";
+      const flags = [
+        "(assetsLoaded, ",
+        this.assetsLoaded + "), ",
+        "(introDone, ",
+        this.introDone + "), ",
+        "(outroFlag, ",
+        this.outroFlag + ")"
+      ];
+      return "The state is: " + flags.join(" ") + ".";
     }
   },
   methods: {
-    beforeIntroLeave () {
+    afterIntroEnter (el) {
+      console.log(el);
       this.introDone = true;
+      this.$store.commit("loading/setOutroSequenceIsComplete");
       console.log("The intro is about to leave!");
     },
     afterOutroEnter () {
@@ -85,22 +95,21 @@ export default {
 
 .trans-nav-default
   color: white
-  background-color: black
+  background-color: rgba(black, 0.5)
   &__guts
     position: relative
     text-align: center
     top: 50%
     transform: translateY(-50%)
-    transition: opacity 0.5s
 
 .trans-nav-default-intro-sequence-enter
   transform: translateX(100%)
 
-.trans-nav-default-intro-sequence-enter-active, .trans-nav-default-sequence-leave-active
+.trans-nav-default-intro-sequence-enter-active
   transition: transform 0.5s
 
 .trans-nav-default-intro-sequence-leave-to
-  //transform: translateX(-100%)
+  transform: translateX(-100%)
 
 .trans-nav-default-outro-sequence-enter
   transform: translateX(0)

@@ -2,7 +2,7 @@
   <div>
     <hero :items="[]" :timing="{}"></hero>
     <img-strict
-      src="https://bit.ly/2EvtEcd"
+      src="https://bit.ly/2yq6794"
       width="200"
       alt="pumpkins">
     </img-strict>

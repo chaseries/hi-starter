@@ -23,7 +23,7 @@ export default {
   computed: {
     // DELETE ME
     transType () {
-      return this.$store.state.loading.transType;
+      return this.$store.state.loading.currentTransType;
     }
   }
 };
