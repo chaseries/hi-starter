@@ -12,6 +12,11 @@ export const createApp = function createApp() {
 
   sync(store, router);
 
+  // router.beforeEach((to, from, next) => {
+  // store.commit("loading/resetCurrentPageState");
+  // next();
+  // });
+
   const app = new Vue({
     router,
     store,

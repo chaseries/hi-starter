@@ -47,6 +47,7 @@ export default {
 
 .hero-index
   height: 100vh
+  height: 50vh // to be deleted
 
   canvas[resize]
     position: absolute

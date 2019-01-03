@@ -1,56 +1,25 @@
 <template>
   <div>
     <hero :items="[]" :timing="{}"></hero>
-    <lazy-img
-      :shouldLoad="shouldLoad"
-      width="700"
-      src="https://i.imgur.com/lYfupUs.jpg">
-    </lazy-img>
-    <img
-      @load="decrementCriticalCount"
-      src="http://gfsnt.no/oen/foto/Haegefjell_Jan_2013_Large.jpg"
-      width="400">
+    <img-strict
+      src="https://bit.ly/2yq6794"
+      width="0"
+      alt="pumpkins">
+    </img-strict>
   </div>
 </template>
 
 <script>
-import LazyImg from "VUE_COMPONENT/lazy/Img.vue";
-import Preloader from "VUE_COMPONENT/preloader/Index.vue";
-import { imagePromise } from "SRC/util/loading";
-import { mapGetters } from "vuex";
-
+import Hero from "VUE_COMPONENT/hero/HeroIndex.vue";
+import CriticalAssets from "VUE_COMPONENT/mixin/critical-assets";
+import ImgStrict from "VUE_COMPONENT/img/ImgStrict.vue";
 
 export default {
   name: "page-index",
-  data () {
-    return {
-      criticalAssets: 1
-    };
-  },
+  mixins: [CriticalAssets],
   components: {
-    Hero: () => import(
-      /* webpackChunkName: "componentHeroHeroIndex" */
-      "VUE_COMPONENT/hero/HeroIndex.vue"
-    ),
-    Preloader,
-    LazyImg
-  },
-  methods: {
-    decrementCriticalCount () {
-      this.criticalAssets -= 1;
-    }
-  },
-  computed: {
-    shouldLoad () {
-      return this.$store.getters["loading/getCriticalAssetsLoaded"]("/");
-    }
-  },
-  watch: {
-    criticalAssets (numAssetsNotFinishedLoading) {
-      if (numAssetsNotFinishedLoading === 0) {
-        this.$store.commit("loading/setCriticalAssetsLoaded", "/");
-      }
-    }
+    Hero,
+    ImgStrict
   }
 };
 </script>

@@ -1,19 +1,31 @@
 <template>
   <header class="layout-header">
+    The trans type is {{ transType }}
     <ul>
-      <li><router-link to="/" name="home" id="homeId">Home</router-link></li>
-      <li><router-link to="/about?trans=heroHomeToAbout" name="about" id="aboutId">About</router-link></li>
-      <li><router-link to="/digest">Digest</router-link></li>
-      <li><router-link to="/works">Works</router-link></li>
-      <li><router-link to="/contact">Contact</router-link></li>
+      <li><trans-link to="/" trans="default">Home</trans-link></li>
+      <li><trans-link to="/about" trans="default">About</trans-link></li>
+      <li><trans-link to="/digest" trans="notDefault">Digest</trans-link></li>
+      <li><trans-link to="/works" trans="notDefault">Works</trans-link></li>
+      <li><trans-link to="/contact" trans="notDefault">Contact</trans-link></li>
     </ul>
   </header>
 </template>
 
 <script>
+import TransLink from "VUE_COMPONENT/trans-link/TransLink.vue";
+
 
 export default {
-  name: "component-layout-header-layout-header"
+  name: "component-layout-header-layout-header",
+  components: {
+    TransLink
+  },
+  computed: {
+    // DELETE ME
+    transType () {
+      return this.$store.state.loading.currentTransType;
+    }
+  }
 };
 </script>
 
