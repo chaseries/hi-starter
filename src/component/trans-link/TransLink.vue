@@ -1,7 +1,5 @@
 <template>
-  <div @click="initiateNavigation">
-    <a :href="to"><slot></slot></a>
-  </div>
+  <a :href="to" @click="initiateNavigation"><slot></slot></a>
 </template>
 
 <script>
@@ -21,7 +19,10 @@ export default {
   },
   data () {
     return {
-      theTo: null
+      // Without some sort of memory of which trans-link was clicked, all
+      // of the trans-links on a page will look at the changed value of
+      // outroSequenceIsComplete and navigate to their own `to` prop.
+      wasClicked: false
     };
   },
   computed: {
@@ -30,21 +31,29 @@ export default {
     }
   },
   watch: {
-    outroSequenceIsComplete (currentValue) {
-      console.log("The value of `this` is", this);
-      console.log("The outro sequence is complete. The value of to is", this.to);
-      if (currentValue === true) {
-        this.$router.push(this.theTo);
+    outroSequenceIsComplete (isComplete) {
+      // Check that this is in fact the correct transition link
+      if ((isComplete === true) && this.wasClicked) { 
+        console.log("The outro sequence is complete. The value of `to` is", this.to);
+        this.wasClicked = false;
+        this.$store.commit("loading/resetCurrentPageState");
+        this.$router.push(this.to);
       }
+      this.wasClicked = false;
     }
   },
   methods: {
     initiateNavigation (e) {
+      console.log("initiating...");
       e.preventDefault();
-      this.theTo = this.to;
-      console.log("Initiating navigation. The value of `to` is", this.to);
+      console.log("The route is", this.$route);
+      if (this.$route.path === this.to) {
+        console.log("They're the same.");
+        return;
+      }
+      this.wasClicked = true;
       this.$store.commit("loading/setCurrentTransType", this.trans);
-      this.$store.commit("loading/setOutroSequenceShouldPlay");
+      this.$store.commit("loading/setTransNavHasOccured");
     }
   }
 };

@@ -2,11 +2,11 @@
   <header class="layout-header">
     The trans type is {{ transType }}
     <ul>
-      <li><router-link to="/" name="home" id="homeId">Home</router-link></li>
-      <li><trans-link to="/about">About</trans-link></li>
+      <li><trans-link to="/" trans="default">Home</trans-link></li>
+      <li><trans-link to="/about" trans="default">About</trans-link></li>
       <li><trans-link to="/digest" trans="notDefault">Digest</trans-link></li>
-      <li><router-link to="/works">Works</router-link></li>
-      <li><router-link to="/contact">Contact</router-link></li>
+      <li><trans-link to="/works" trans="notDefault">Works</trans-link></li>
+      <li><trans-link to="/contact" trans="notDefault">Contact</trans-link></li>
     </ul>
   </header>
 </template>

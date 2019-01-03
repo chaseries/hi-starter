@@ -13,8 +13,9 @@ export const createApp = function createApp() {
 
   sync(store, router);
 
-  // It appears this is probably unnecessary
   // router.beforeEach((to, from, next) => {
+  // store.commit("loading/resetCurrentPageState");
+  // next();
   // });
 
   const app = new Vue({

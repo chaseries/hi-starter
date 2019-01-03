@@ -6,7 +6,7 @@ export default {
       this.$store.commit("loading/setInitialAppLoadIsCompleteTrue");
     }
   },
-  beforeLeave (to, from, next) {
-    this.$store.commit("loading/resetCurrentPageState");
+  destroyed (to, from, next) {
+    //this.$store.commit("loading/resetCurrentPageState");
   }
 };

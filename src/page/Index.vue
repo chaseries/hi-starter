@@ -3,7 +3,7 @@
     <hero :items="[]" :timing="{}"></hero>
     <img-strict
       src="https://bit.ly/2yq6794"
-      width="200"
+      width="0"
       alt="pumpkins">
     </img-strict>
   </div>

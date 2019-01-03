@@ -23,6 +23,7 @@ export default {
     }
   },
   beforeMount () {
+    console.log("Why isn't this happening before it's mounted, jesus christ.");
     this.$store.commit("loading/incrementTotalAssets");
   },
   mounted () {

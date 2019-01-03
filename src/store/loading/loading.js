@@ -1,5 +1,4 @@
 import { add, size } from "SRC/util/array-set-functions";
-import { zipToObject, repeatCall } from "SRC/util/prelude";
 
 
 const getAssetsLoadedHelper = function ({ currentPageState }) {
@@ -11,21 +10,24 @@ const getAssetsLoadedHelper = function ({ currentPageState }) {
 
 // Store definitions
 
+const defaultCurrentPageState = {
+  transNavHasOccured: false,
+  outroSequenceIsComplete: false,
+  totalAssets: 0,
+  totalLoaded: 0,
+  finishedCounting: false
+};
+
 const state = {
   currentTransType: "Init",
   initialAppLoadIsComplete: false,
-  currentPageState: {
-    transNavigationHasOccured: false,
-    finishedCounting: false,
-    totalAssets: 0,
-    totalLoaded: 0
-  }
+  currentPageState: { ...defaultCurrentPageState }
 };
 
 const mutations = {
 
   setTransNone(state) {
-    this.state.currentTransName = "None";
+    state.currentTransName = "None";
   },
 
   setCurrentTransType(state, newTransType) {
@@ -36,8 +38,8 @@ const mutations = {
     state.currentTransType = "none";
   },
 
-  setOutroSequenceShouldPlay (state) {
-    state.currentPageState.outroSequenceShouldPlay = true;
+  setTransNavHasOccured (state) {
+    state.currentPageState.transNavHasOccured = true;
   },
 
   setOutroSequenceIsComplete (state) {
@@ -45,12 +47,9 @@ const mutations = {
   },
 
   // Should be reset before every navigation
-  resetCurrentPageState ({ currentPageState }) {
-    currentPageState.outroSequenceShouldPlay = false;
-    currentPageState.outroSequenceIsComplete = false;
-    currentPageState.finishedCounting = false;
-    currentPageState.totalAssets = 0; // Should be Maybe
-    currentPageState.totalLoaded = 0;
+  resetCurrentPageState (state) {
+    console.log("From inside resetCurrentPageState...");
+    state.currentPageState = { ...defaultCurrentPageState };
   },
   
   setFinishedCountingTrue ({ currentPageState }) {
@@ -91,8 +90,8 @@ const getters = {
     return initialAppLoadIsComplete;
   },
 
-  getOutroSequenceShouldPlay ({ currentPageState }) {
-    return currentPageState.outroSequenceShouldPlay;
+  getTransNavHasOccured ({ currentPageState }) {
+    return currentPageState.transNavHasOccured;
   },
 
   getOutroSequenceIsComplete ({ currentPageState }) {

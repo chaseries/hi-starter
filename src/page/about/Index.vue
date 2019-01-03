@@ -2,9 +2,9 @@
   <div>
     <hero></hero>
     <img-strict
-      src="https://bit.ly/2yq6794"
+      src="https://bit.ly/2EZG1OU"
       width="200"
-      alt="pumpkins">
+      alt="elephant">
     </img-strict>
   </div>
 </template>

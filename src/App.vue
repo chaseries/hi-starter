@@ -7,22 +7,23 @@
       <ul>
         <li>Transition type: {{ transType }}</li>
         <li>Initial load complete: {{ initialLoadComplete }}</li>
+        <li>Current load complete: {{ currentLoadComplete }}</li>
+        <li>Trans nav has occured: {{ transNavHasOccured }}</li>
       </ul>
+      Current page state: {{ currentPageState }}
+      <br><br>
     </div>
-    <trans-init></trans-init>
     <trans></trans>
     <router-view></router-view>
   </div>
 </template>
 
 <script>
-import TransInit from "VUE_COMPONENT/trans/TransInit.vue";
-import Trans from "VUE_COMPONENT/trans/Trans.vue";
+import Trans from "VUE_COMPONENT/trans-new/Trans.vue";
 
 export default {
   name: "app",
   components: {
-    TransInit,
     Trans
   },
   computed: {
@@ -32,6 +33,15 @@ export default {
     // --- Transition information stuff
     initialLoadComplete () {
       return this.$store.getters["loading/getInitAppLoadComplete"];
+    },
+    transNavHasOccured () {
+      return this.$store.getters["loading/getTransNavHasOccured"];
+    },
+    currentLoadComplete () {
+      return this.$store.getters["loading/getAssetsLoaded"];
+    },
+    currentPageState () {
+      return this.$store.state.loading.currentPageState;
     }
   }
 };
